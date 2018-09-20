@@ -1,3 +1,8 @@
+/*
+    for macosx:
+        https://blog.csdn.net/xenyinzen/article/details/4491338
+*/
+
 #include <stdlib.h>
 #include <stdio.h> 
 #include "lua.h"
@@ -22,6 +27,10 @@ static const struct luaL_Reg mylib[] =
 
 LUALIB_API int luaopen_mylib(lua_State *L)
 {
-	luaL_newlib(L, mylib);
+#if LUA_VERSION_NUM > 501
+    luaL_newlib(L, mylib);
+#else
+	luaL_register(L, "mylib", mylib);
+#endif
 	return 1;
 }
