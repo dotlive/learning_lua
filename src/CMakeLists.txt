@@ -133,5 +133,6 @@ TARGET_LINK_LIBRARIES(${LUA_INTERPRETER} ${LUA_SHARED_LIB})
 # ----------------------------------------------------------------------------------------------------
 # extension libs
 
+ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/lua-launcher)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/mylib)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/lua-protobuf)
