@@ -1,5 +1,6 @@
 # Directoies
-src/build*/
+build*/
+bin/
 
 # Files
 *.ilk
