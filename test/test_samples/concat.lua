@@ -1,15 +1,14 @@
 -- table.concat
 local tbl = {"a", "b", "c", "d", "e"}
 
--- 1¸ö²ÎÊı: Á¬½ÓÖ¸¶¨±íÖĞËùÓĞµÄ×Ö¶Î
+-- 1ä¸ªå‚æ•°: è¿æ¥æŒ‡å®šè¡¨ä¸­æ‰€æœ‰çš„å­—æ®µ
 print(table.concat(tbl))
 
--- 2¸ö²ÎÊı: table, spliter
+-- 2ä¸ªå‚æ•°: table, spliter
 print(table.concat(tbl, "|"))
 
--- 3¸ö²ÎÊı: table, spliter, pos_start
+-- 3ä¸ªå‚æ•°: table, spliter, pos_start
 print(table.concat(tbl, "@", 2))
 
--- 4¸ö²ÎÊı: table, spliter, pos_start, pos_end
+-- 4ä¸ªå‚æ•°: table, spliter, pos_start, pos_end
 print(table.concat(tbl, "#", 2, 4))
-

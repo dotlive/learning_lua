@@ -1,8 +1,7 @@
 --[[
-	select(index, ...) -- ´¦Àí²»¶¨²ÎÓÃ
-	1. index ÎªÊý×ÖÊ±, Êä³ö´Óindex¿ªÊ¼µÄËùÓÐÊ£Óà²ÎÊý; -1±íÊ¾×îºóÒ»¸ö
-	2. index Îª '#' Ê±, Êä³ö¿É±ä²ÎÊý×ÜÊý
-
+	select(index, ...) -- å¤„ç†ä¸å®šå‚ç”¨
+	1. index ä¸ºæ•°å­—æ—¶, è¾“å‡ºä»Žindexå¼€å§‹çš„æ‰€æœ‰å‰©ä½™å‚æ•°; -1è¡¨ç¤ºæœ€åŽä¸€ä¸ª
+	2. index ä¸º '#' æ—¶, è¾“å‡ºå¯å˜å‚æ•°æ€»æ•°
 --]]
 
 local f = function(a, b, ...)
