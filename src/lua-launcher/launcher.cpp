@@ -1,21 +1,69 @@
-#include <lua.h>
-#include <lauxlib.h>
 #include <iostream>
 
-int main(int argc, char** argv)
+extern "C"
 {
-    lua_State* L = luaL_newstate();
-    // 将hello world 压入虚拟栈
-    lua_pushstring(L, "hello world");
-    // 将整数10压入虚拟栈
-    lua_pushnumber(L, 10);
-    if (lua_isnumber(L, -1) && lua_isstring(L, -2))
+    #include <lua.h>
+    #include <lualib.h>
+    #include <lauxlib.h>
+}
+
+// from top to base
+static void stack_trace(lua_State* L)
+{
+    std::cout << "begin dump lua stack" << std::endl;
+    int top = lua_gettop(L);
+    for (int i = top; i > 0; --i)
     {
-        // 从虚拟栈中取出对应位置的元素
-        int num = lua_tonumber(L, -1);
-        const char* str = lua_tostring(L, -2);
-        printf("%d %s \n", num, str);
+        int t = lua_type(L, i);
+        std::cout << i << " " << lua_typename(L, t) << " ";
+
+        switch (t)
+        {
+            case LUA_TSTRING:
+            {
+                std::cout << lua_tostring(L, i) << std::endl;
+            }
+            break;
+            case LUA_TBOOLEAN:
+            {
+                std::cout << (lua_toboolean(L, i) ? "true " : "false ") << std::endl;
+            }
+            break;
+            case LUA_TNUMBER:
+            {
+                std::cout << lua_tonumber(L, i) << std::endl;
+            }
+            break;
+            default:
+            {
+                std::cout << lua_typename(L, t) << std::endl;
+            }
+            break;
+        }
     }
+    std::cout << "end dump lua stack" << std::endl << std::endl;
+}
+
+int main(int argc, char* argv[])
+{
+    lua_State *L = luaL_newstate();
+
+    // to stack
+    lua_pushstring(L, "hello world");
+    lua_pushnumber(L, 10);
+
+    stack_trace(L);
+
+    // from stack
+    if (lua_isnumber(L, -1))
+    {
+        std::cout << lua_tonumber(L, -1) << std::endl;
+    }
+    if (lua_isstring(L, -2))
+    {
+        std::cout << lua_tostring(L, -2) << std::endl;
+    }
+
     lua_close(L);
 
     system("pause");
