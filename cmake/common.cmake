@@ -1,0 +1,16 @@
+SET(CMAKE_DEBUG_POSTFIX "_d" CACHE STRING "Add a postfix, usually _d on windows")
+SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "Add a postfix, usually empty on windows")
+SET(CMAKE_RELWITHDEBINFO_POSTFIX "" CACHE STRING "Add a postfix, usually empty on windows")
+SET(CMAKE_MINSIZEREL_POSTFIX "" CACHE STRING "Add a postfix, usually empty on windows")
+
+SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+
+IF(MAGE_PLATFORM_WINDOWS)
+    SET(LIB_EXT_NAME "lib")
+    SET(LIB_PRE_NAME "")
+    SET(DYN_EXT_NAME "dll")
+ELSE()
+    SET(LIB_EXT_NAME "a")
+    SET(LIB_PRE_NAME "lib")
+    SET(DYN_EXT_NAME "so")
+ENDIF()

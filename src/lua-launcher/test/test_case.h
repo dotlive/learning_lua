@@ -51,7 +51,7 @@ inline void test_cppcalllua()
     }
 #else
     // luaL_dofile = luaL_loadfile + lua_pcall
-    int ret = luaL_dofile(L, "cppcalllua.lua");
+    int ret = luaL_dofile(L, "../lua-launcher/test/cppcalllua.lua");
     if (ret != LUA_OK)
     {
         std::cout << "do lua file error!" << std::endl;
@@ -122,7 +122,7 @@ inline void test_luacallcpp()
 
     lua_register(L, "sub", sub);
 
-    int ret = luaL_dofile(L, "luacallcpp.lua");
+    int ret = luaL_dofile(L, "../lua-launcher/test/luacallcpp.lua");
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
