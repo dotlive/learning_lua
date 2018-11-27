@@ -134,7 +134,7 @@ ELSE()
 
     FOREACH(flag_var
         CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
-        SET(${flag_var} "${${flag_var}} -W -Wall -Werror -fpic")
+        SET(${flag_var} "${${flag_var}} -W -Wall -fpic")
         IF(NOT (ANDROID OR IOS))
             SET(${flag_var} "${${flag_var}} -march=core2 -msse2")
         ENDIF()
