@@ -1,5 +1,8 @@
 #include "utils.h"
 
+using namespace Mage;
+
+
 namespace
 {
     const int default_width = 15;
@@ -55,16 +58,40 @@ namespace
             break;
         default:
             break;
-        }
+        } 
 
         std::cout << std::endl;
     }
 
     int custom_searcher(lua_State *L)
     {
-        std::string module_name = luaL_checkstring(L, 1);
+        FileSys *filesys = FileSys::Instance();
+        if (NULL == filesys)
+        {
+            return -1;
+        }
+
+
+        std::string module_name;
+        module_name.append(script_dir);
+        module_name.append(luaL_checkstring(L, 1));
         module_name.append(".lua");
         std::cout << module_name << std::endl;
+
+        FILE* file = (FILE*)filesys->FileOpen(module_name.c_str(), "rt");
+        if (NULL == file)
+        {
+            return errno;
+        }
+
+        char buff[1024] = { 0 };
+        filesys->FileSeek(file, 0, SEEK_SET);
+        size_t readcnt = filesys->FileRead(file, buff, sizeof(buff) - 1);
+        if (LUA_OK != luaL_loadbuffer(L, buff, readcnt, module_name.c_str()))
+        {
+            return luaL_error(L, "%s", luaL_checkstring(L, -1));
+        }
+
         return LUA_OK;
     }
 }

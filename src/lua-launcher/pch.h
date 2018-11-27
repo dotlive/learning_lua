@@ -7,3 +7,7 @@
     #include "lualib.h"
     #include "lauxlib.h"
 #endif
+
+#include <gfl/gfl.h>
+#include <gfl/base/file_sys.h>
+#include <gfl/utils/string_util.h>

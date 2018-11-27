@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT("learning_lua")
 
 SET(MAGE_BIN_DIR
-    ${CMAKE_HOME_DIRECTORY}/bin
+    ${CMAKE_HOME_DIRECTORY}/../bin
 )
 
 # OUTPUT (for static libs)
@@ -152,6 +152,7 @@ ENDIF()
 # ----------------------------------------------------------------------------------------------------
 # extension libs
 
+ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/gfl)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/lua-launcher)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/mylib)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/lua-protobuf)

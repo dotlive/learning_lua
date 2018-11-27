@@ -6,6 +6,8 @@
 #include <string>
 #include "pch.h"
 
+const char* const script_dir = "E:/learning_lua/src/lua-launcher/test/";
+
 class utils
 {
 public:
