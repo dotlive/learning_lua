@@ -181,16 +181,16 @@
 	luaL_checkversion_		// luaL_checkversion
 	luaL_getmetafield
 	luaL_callmeta
-
 	luaL_tolstring
-	luaL_optlstring
+	luaL_argerror
 
+	// optXXX 比 checkXXX 多了一个默认值参数
+	luaL_checklstring
+	luaL_optlstring
 	luaL_checknumber
 	luaL_optnumber
-
 	luaL_checkinteger
 	luaL_optinteger
-
 	luaL_checkunsigned
 	luaL_optunsigned
 

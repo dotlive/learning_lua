@@ -1,6 +1,9 @@
 PROJECT(launcher)
 
-SET(SRC_LAUNCHER launcher.cpp)
+SET(SRC_LAUNCHER 
+    launcher.cpp
+    utils.cpp
+)
 
 SET(LIB_NAME launcher)
 
