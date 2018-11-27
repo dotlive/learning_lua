@@ -3,11 +3,14 @@
         https://blog.csdn.net/xenyinzen/article/details/4491338
 */
 
-#include <stdlib.h>
-#include <stdio.h> 
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
+#ifdef __cplusplus
+    #include <lua.hpp>
+#else
+    #include "lua.h"
+    #include "lualib.h"
+    #include "lauxlib.h"
+#endif
+
 
 static int lua_add(lua_State *L)
 {
