@@ -59,6 +59,14 @@ namespace
 
         std::cout << std::endl;
     }
+
+    int custom_searcher(lua_State *L)
+    {
+        std::string module_name = luaL_checkstring(L, 1);
+        module_name.append(".lua");
+        std::cout << module_name << std::endl;
+        return LUA_OK;
+    }
 }
 
 void utils::stack_trace(lua_State* L)
@@ -83,4 +91,42 @@ void utils::stack_trace(lua_State* L)
 void utils::print_field(lua_State* L, int index)
 {
     trace_special_frame(L, index, true);
+}
+
+bool utils::add_searcher(lua_State *L)
+{
+    return add_searcher(L, custom_searcher);
+}
+
+bool utils::add_searcher(lua_State *L, lua_CFunction searcher)
+{
+    lua_getglobal(L, "package");
+#if LUA_VERSION_NUM == 501
+    lua_getfield(L, -1, "loaders");
+#else
+    lua_getfield(L, -1, "searchers");
+#endif
+    lua_remove(L, -2);
+
+    if (!lua_istable(L, -1))
+    {
+        luaL_error(L, "%s", "can not set searcher");
+        return false;
+    }
+
+    int num_loaders = 0;
+    lua_pushnil(L);
+    while (lua_next(L, -2) != 0)
+    {
+        lua_pop(L, 1);
+        ++num_loaders;
+    }
+
+    lua_pushinteger(L, num_loaders + 1);
+    lua_pushcfunction(L, searcher);
+    lua_rawset(L, -3);
+
+    lua_pop(L, 1);
+
+    return true;
 }

@@ -8,6 +8,8 @@ int main(int argc, char* argv[])
     test_cppcalllua();
     std::cout << "test_luacallcpp-------------------------------------" << std::endl;
     test_luacallcpp();
+    std::cout << "test_customsearcher---------------------------------" << std::endl;
+    test_customsearcher();
 
     system("pause");
     return 0;

@@ -131,3 +131,21 @@ inline void test_luacallcpp()
 
     lua_close(L);
 }
+
+//////////////////////////////////////////////////////////////////////////
+// lua call c++
+
+inline void test_customsearcher()
+{
+    lua_State *L = luaL_newstate();
+    luaL_openlibs(L);
+
+    int ret = luaL_dofile(L, "../lua-launcher/test/custom_searcher.lua");
+    if (ret != LUA_OK)
+    {
+        std::cout << "read lua file error!" << std::endl;
+        return;
+    }
+
+    lua_close(L);
+}
