@@ -16,7 +16,7 @@ public:
     static bool add_searcher(lua_State *L);
     static bool add_searcher(lua_State *L, lua_CFunction searcher);
 
-    static std::string full_path(const char* path);
+    static std::string script_path(const char* path);
 };
 
 #define trace_debug(trace_all) { if (trace_all) utils::stack_trace(L); else utils::print_field(L, -1); }

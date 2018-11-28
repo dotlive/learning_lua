@@ -52,7 +52,7 @@ inline void test_cppcalllua()
     }
 #else
     // luaL_dofile = luaL_loadfile + lua_pcall
-    int ret = luaL_dofile(L, utils::full_path("cppcalllua").c_str());
+    int ret = luaL_dofile(L, utils::script_path("cppcalllua").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "do lua file error!" << std::endl;
@@ -133,7 +133,7 @@ inline void test_luacallcpp()
 
     lua_register(L, "sub", sub);
 
-    int ret = luaL_dofile(L, "../src/lua-launcher/test/luacallcpp.lua");
+    int ret = luaL_dofile(L, utils::script_path("luacallcpp").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
@@ -153,7 +153,7 @@ inline void test_customsearcher()
 
     utils::add_searcher(L);
 
-    int ret = luaL_dofile(L, "../src/lua-launcher/test/custom_searcher.lua");
+    int ret = luaL_dofile(L, utils::script_path("custom_searcher").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;

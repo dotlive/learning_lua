@@ -1,6 +1,6 @@
 #include <gfl/utils/options.h>
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE
 #include "test/test_case.h"
@@ -34,8 +34,7 @@ int main(int argc, char* argv[])
     luaL_openlibs(L);
     utils::add_searcher(L);
 
-    std::string init_path = Mage::Options::Query("script_path") + "init.lua";
-    if (LUA_OK != luaL_dofile(L, init_path.c_str()))
+    if (LUA_OK != luaL_dofile(L, utils::script_path("init").c_str()))
     {
         return 0;
     }

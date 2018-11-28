@@ -152,7 +152,7 @@ bool utils::add_searcher(lua_State *L, lua_CFunction searcher)
     return true;
 }
 
-std::string utils::full_path(const char* path)
+std::string utils::script_path(const char* path)
 {
     std::string temp(Mage::Options::Query("script_path"));
     temp.append(path);
