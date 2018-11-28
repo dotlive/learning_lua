@@ -34,6 +34,7 @@ inline void test_cppcalllua()
 {
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
+    utils::add_searcher(L);
 
 #if TEST_LOADFILE
     int ret = luaL_loadfile(L, "cppcalllua.lua");
@@ -51,7 +52,7 @@ inline void test_cppcalllua()
     }
 #else
     // luaL_dofile = luaL_loadfile + lua_pcall
-    int ret = luaL_dofile(L, "../src/lua-launcher/test/cppcalllua.lua");
+    int ret = luaL_dofile(L, utils::full_path("cppcalllua").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "do lua file error!" << std::endl;
@@ -71,19 +72,27 @@ inline void test_cppcalllua()
     trace_debug(trace_stack);
     {
         // access table field
-        lua_getfield(L, -1, "name");
+        lua_getfield(L, -1, "name");    // lua_getfiedl
         trace_debug(false);
-        lua_getfield(L, -2, "gender");
-        trace_debug(false);
+
+        lua_pushstring(L, "gender");    // lua_gettable
+        trace_debug(true);
+        lua_gettable(L, -3);
+        trace_debug(true);
+
+        lua_pushstring(L, "address");   // lua_rawget
+        trace_debug(true);
+        lua_rawget(L, -4);
+        trace_debug(true);
 
         // modify table field
         lua_pushstring(L, "007");
         trace_debug(true);
-        lua_setfield(L, -4, "name");    // -4: table's index; 1st. table[name] = "007", 2nd. pop 007 from the stack
+        lua_setfield(L, -5, "name");    // -5: table's index; 1st. table[name] = "007", 2nd. pop 007 from the stack
         trace_debug(true);
 
         // check new name
-        lua_getfield(L, -3, "name");
+        lua_getfield(L, -4, "name");
         trace_debug(true);
     }
 
@@ -92,9 +101,11 @@ inline void test_cppcalllua()
     {
         // call lua function
         lua_pushnumber(L, 1);
+        trace_debug(true);
         lua_pushnumber(L, 2);
+        trace_debug(true);
         lua_pcall(L, 2, 1, 0);
-        trace_debug(false);
+        trace_debug(true);
     }
 
     trace_debug(true);

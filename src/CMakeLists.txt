@@ -152,6 +152,7 @@ ENDIF()
 # ----------------------------------------------------------------------------------------------------
 # extension libs
 
+#ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/externals)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/gfl)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/lua-launcher)
 ADD_SUBDIRECTORY(${CMAKE_HOME_DIRECTORY}/mylib)

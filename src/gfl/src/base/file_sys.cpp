@@ -353,7 +353,6 @@ namespace Mage
         {
             return true;
         }
-#endif
 
         bool succeed = true;
 
@@ -380,6 +379,7 @@ namespace Mage
         }
 
         return succeed;
+#endif
     }
 
     bool FileSys::DeleteDir(const char* name)

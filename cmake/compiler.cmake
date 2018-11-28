@@ -9,7 +9,7 @@ IF(CMAKE_C_COMPILER_ID MATCHES MSVC)
         SET(MAGE_COMPILER_VERSION "140")
     ENDIF()
 
-    SET(CMAKE_CXX_FLAGS "/W4 /EHsc /MP /bigobj /Zc:throwingNew /Zc:strictStrings /Zc:rvalueCast /Gw")
+    SET(CMAKE_CXX_FLAGS "/W3 /EHsc /MP /bigobj /Zc:throwingNew /Zc:strictStrings /Zc:rvalueCast /Gw")
     IF(MSVC_VERSION GREATER 1910)
         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
     ELSE()

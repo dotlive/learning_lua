@@ -29,9 +29,11 @@ SET(BASE_SOURCE_FIELS
 # Utils
 SET(UTILS_HEADER_FILES
     ${GFL_PROJECT_DIR}/include/gfl/utils/string_util.h
+    ${GFL_PROJECT_DIR}/include/gfl/utils/options.h
 )
 SET(UTILS_SOURCE_FILES
     ${GFL_PROJECT_DIR}/src/utils/string_util.cpp
+    ${GFL_PROJECT_DIR}/src/utils/options.cpp
 )
 
 SOURCE_GROUP("Base\\Header Files" FILES ${BASE_HEADER_FILES})
@@ -40,6 +42,7 @@ SOURCE_GROUP("Utils\\Header Files" FILES ${UTILS_HEADER_FILES})
 SOURCE_GROUP("Utils\\Source Files" FILES ${UTILS_SOURCE_FILES})
 
 INCLUDE_DIRECTORIES(${GFL_PROJECT_DIR}/include)
+INCLUDE_DIRECTORIES(${GFL_PROJECT_DIR}/../externals)
 ADD_LIBRARY(${LIB_NAME} STATIC
     ${BASE_SOURCE_FIELS} ${BASE_HEADER_FILES}
     ${UTILS_SOURCE_FILES} ${UTILS_HEADER_FILES}
