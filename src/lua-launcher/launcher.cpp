@@ -1,6 +1,6 @@
 #include <gfl/utils/options.h>
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE
 #include "test/test_case.h"
@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
     test_luacallcpp();
     std::cout << "test_customsearcher---------------------------------" << std::endl;
     test_customsearcher();
+    std::cout << "test_setglobalvalue---------------------------------" << std::endl;
+    test_setglobalvalue();
 
     system("pause");
     return 0;
@@ -52,6 +54,7 @@ int main(int argc, char* argv[])
 
     lua_close(L);
 
+    system("pause");
     return 0;
 }
 

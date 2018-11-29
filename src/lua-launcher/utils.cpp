@@ -66,11 +66,7 @@ namespace
 
     int custom_searcher(lua_State *L)
     {
-        std::string module_name;
-        module_name.append(Options::Query("script_path").c_str());
-        module_name.append(luaL_checkstring(L, 1));
-        module_name.append(".lua");
-
+        std::string module_name = utils::script_path(luaL_checkstring(L, 1));
         FILE* file = (FILE*)g_filesys->FileOpen(module_name.c_str(), "rt");
         if (NULL == file)
         {

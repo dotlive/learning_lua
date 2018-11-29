@@ -37,7 +37,7 @@ inline void test_cppcalllua()
     utils::add_searcher(L);
 
 #if TEST_LOADFILE
-    int ret = luaL_loadfile(L, "cppcalllua.lua");
+    int ret = luaL_loadfile(L, utils::script_path("cppcalllua").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
@@ -99,6 +99,11 @@ inline void test_cppcalllua()
     lua_getglobal(L, "sum");
     trace_debug(trace_stack);
     {
+        int ref = luaL_ref(L, LUA_REGISTRYINDEX);
+        trace_debug(true);
+        lua_rawgeti(L, LUA_REGISTRYINDEX, ref);
+        trace_debug(true);
+
         // call lua function
         lua_pushnumber(L, 1);
         trace_debug(true);
@@ -157,6 +162,55 @@ inline void test_customsearcher()
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
+        return;
+    }
+
+    lua_close(L);
+}
+
+//////////////////////////////////////////////////////////////////////////
+// 
+
+inline void test_setglobalvalue()
+{
+    lua_State *L = luaL_newstate();
+    luaL_openlibs(L);
+    utils::add_searcher(L);
+
+    int ret = luaL_loadfile(L, utils::script_path("setglobalvalue").c_str());
+    if (ret != LUA_OK)
+    {
+        std::cout << "read lua file error!" << std::endl;
+        return;
+    }
+
+    // change global before pcall
+    lua_pushstring(L, "this is a value setted from cpp");
+    trace_debug(true);
+    lua_setglobal(L, "global_cpp");
+    trace_debug(true);
+
+    lua_createtable(L, 2, 0);
+    trace_debug(true);
+    lua_pushnumber(L, 1);
+    trace_debug(true);
+    lua_pushnumber(L, 49);
+    trace_debug(true);
+    lua_rawset(L, -3);
+    trace_debug(true);
+    lua_pushnumber(L, 2);
+    trace_debug(true);
+    lua_pushstring(L, "Life is a beach");
+    trace_debug(true);
+    lua_rawset(L, -3);
+    trace_debug(true);
+    lua_setglobal(L, "arg");
+    trace_debug(true);
+
+    ret = lua_pcall(L, 0, 0, 0);
+    if (ret != LUA_OK)
+    {
+        std::cout << "run script error!" << std::endl;
         return;
     }
 
