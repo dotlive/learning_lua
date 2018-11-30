@@ -1,6 +1,9 @@
 #include <gfl/utils/options.h>
+#include <gfl/utils/lua_util.h>
 
-#define DEBUG_MODE 1
+using namespace Mage;
+
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE
 #include "test/test_case.h"
@@ -26,18 +29,18 @@ int main(int argc, char* argv[])
 
 #else
 
-#include "utils.h"
-
 int main(int argc, char* argv[])
 {
     Mage::Options::Load("../res/config.xml");
 
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
-    utils::add_searcher(L);
+    LuaUtil::add_searcher(L);
 
-    if (LUA_OK != luaL_dofile(L, utils::script_path("init").c_str()))
+    if (LUA_OK != luaL_dofile(L, LuaUtil::script_path("init").c_str()))
     {
+        fprintf(stderr, "%s", lua_tostring(L, -1));
+        system("pause");
         return 0;
     }
 
