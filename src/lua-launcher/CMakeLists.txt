@@ -2,6 +2,7 @@ PROJECT(launcher)
 
 SET(SRC_LAUNCHER 
     launcher.cpp
+    test/test_case.h
 )
 
 SET(LIB_NAME launcher)

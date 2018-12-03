@@ -1,4 +1,5 @@
-#include <gfl/util/lua_util.h>
+#include <gfl/utils/lua_util.h>
+using namespace Mage;
 
 //////////////////////////////////////////////////////////////////////////
 // lua stack operation
@@ -11,7 +12,7 @@ inline void test_luastack()
     lua_pushstring(L, "hello world");
     lua_pushnumber(L, 10);
 
-    utils::stack_trace(L);
+    LuaUtil::print_stack(L);
 
     // stack -> c
     if (lua_isnumber(L, -1))
@@ -34,10 +35,10 @@ inline void test_cppcalllua()
 {
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
-    utils::add_searcher(L);
+    LuaUtil::add_searcher(L);
 
 #if TEST_LOADFILE
-    int ret = luaL_loadfile(L, utils::script_path("cppcalllua").c_str());
+    int ret = luaL_loadfile(L, LuaUtil::script_path("cppcalllua").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
@@ -52,7 +53,7 @@ inline void test_cppcalllua()
     }
 #else
     // luaL_dofile = luaL_loadfile + lua_pcall
-    int ret = luaL_dofile(L, utils::script_path("cppcalllua").c_str());
+    int ret = luaL_dofile(L, LuaUtil::script_path("cppcalllua").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "do lua file error!" << std::endl;
@@ -96,6 +97,9 @@ inline void test_cppcalllua()
         trace_debug(true);
     }
 
+    lua_getglobal(L, "mytbl");
+    trace_debug(trace_stack);
+
     lua_getglobal(L, "sum");
     trace_debug(trace_stack);
     {
@@ -138,7 +142,7 @@ inline void test_luacallcpp()
 
     lua_register(L, "sub", sub);
 
-    int ret = luaL_dofile(L, utils::script_path("luacallcpp").c_str());
+    int ret = luaL_dofile(L, LuaUtil::script_path("luacallcpp").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
@@ -156,9 +160,9 @@ inline void test_customsearcher()
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
 
-    utils::add_searcher(L);
+    LuaUtil::add_searcher(L);
 
-    int ret = luaL_dofile(L, utils::script_path("custom_searcher").c_str());
+    int ret = luaL_dofile(L, LuaUtil::script_path("custom_searcher").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;
@@ -175,9 +179,9 @@ inline void test_setglobalvalue()
 {
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
-    utils::add_searcher(L);
+    LuaUtil::add_searcher(L);
 
-    int ret = luaL_loadfile(L, utils::script_path("setglobalvalue").c_str());
+    int ret = luaL_loadfile(L, LuaUtil::script_path("setglobalvalue").c_str());
     if (ret != LUA_OK)
     {
         std::cout << "read lua file error!" << std::endl;

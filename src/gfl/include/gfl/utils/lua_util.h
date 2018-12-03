@@ -11,7 +11,7 @@ namespace Mage
     class LuaUtil
     {
     public:
-        static void stack_trace(lua_State *L);
+        static void print_stack(lua_State *L);
         static void print_field(lua_State *L, int index);
 
         static bool add_searcher(lua_State *L);
@@ -20,7 +20,7 @@ namespace Mage
         static std::string script_path(const char* path);
     };
 
-    #define trace_debug(trace_all) { if (trace_all) LuaUtil::stack_trace(L); else LuaUtil::print_field(L, -1); }
+    #define trace_debug(trace_all) { if (trace_all) LuaUtil::print_stack(L); else LuaUtil::print_field(L, -1); }
 }
 
 #endif // _LAUNCHER_UTILS_H_

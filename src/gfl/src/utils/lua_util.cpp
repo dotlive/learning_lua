@@ -8,63 +8,172 @@ using namespace Mage;
 
 namespace
 {
-    const int default_width = 15;
-    #define format_print(width) std::cout << "  " << std::left << std::setw(width)
+    //////////////////////////////////////////////////////////////////////////
 
-    void trace_special_frame(lua_State *L, int i, bool value_only, int field_count = -1)
+    static void print_item(lua_State *L, int i, int as_key);
+
+    static int is_identifier(const char *s)
     {
-        int t = lua_type(L, i);
-
-        if (!value_only)
+        while (*s)
         {
-            if (field_count < 0)
-            {
-                field_count = lua_gettop(L);
-            }
-
-            // frame
-            static char buf[128] = { 0 };
-            memset(buf, 0, sizeof(buf));
-            sprintf(buf, "%d(%d)", i, (i - field_count - 1));
-            format_print(default_width) << buf;
-            // type
-            format_print(default_width) << lua_typename(L, t);
+            if (!isalnum(*s) && *s != '_') return 0;
+            ++s;
         }
+        return 1;
+    }
 
-        // value
-        switch (t)
+    static int is_seq(lua_State *L, int i)
+    {
+        int keynum = 1;
+        lua_pushnil(L);
+        while (lua_next(L, i))
+        {
+            lua_rawgeti(L, i, keynum);
+            if (lua_isnil(L, -1))
+            {
+                lua_pop(L, 3);
+                return 0;
+            }
+            lua_pop(L, 2);
+            keynum++;
+        }
+        return 1;
+    }
+
+    static void print_seq(lua_State *L, int i)
+    {
+        std::cout << "{";
+
+        for (int k = 1;; ++k)
+        {
+            lua_rawgeti(L, i, k);
+            if (lua_isnil(L, -1)) break;
+            if (k > 1) printf(", ");
+            print_item(L, -1, 0);
+            lua_pop(L, 1);
+        }
+        lua_pop(L, 1);
+
+        std::cout << "}";
+    }
+
+    static void print_table(lua_State *L, int i)
+    {
+        if (i < 0) i = lua_gettop(L) + i + 1;
+
+        if (is_seq(L, i))
+        {
+            print_seq(L, i);
+        }
+        else
+        {
+            const char *prefix = "{";
+            lua_pushnil(L);
+            while (lua_next(L, i))
+            {
+                printf("%s", prefix);
+                print_item(L, -2, 1);   // key
+                printf(" = ");
+                print_item(L, -1, 0);   // value
+                lua_pop(L, 1);
+                prefix = ", ";
+            }
+            printf("}");
+        }
+    }
+
+    static char *get_fn_string(lua_State *L, int i)
+    {
+        static char fn_name[1024];
+
+        if (i < 0) i = lua_gettop(L) + i + 1;
+
+        lua_getglobal(L, "_G");
+        lua_pushnil(L);
+        while (lua_next(L, -2))
+        {
+            if (lua_rawequal(L, i, -1))
+            {
+                snprintf(fn_name, 1024, "function:%s", lua_tostring(L, -2));
+                lua_pop(L, 3);
+                return fn_name;
+            }
+            lua_pop(L, 1);
+        }
+        lua_pop(L, 1);
+        snprintf(fn_name, 1024, "function:%p", lua_topointer(L, i));
+        return fn_name;
+    }
+
+    static void print_item(lua_State *L, int i, int as_key)
+    {
+        int ltype = lua_type(L, i);
+        const char *first = (as_key ? "[" : "");
+        const char *last = (as_key ? "]" : "");
+
+        static char buff[512];
+        memset(buff, 0, sizeof(buff));
+
+        switch (ltype)
         {
         case LUA_TNIL:
+            // This can't be a key, so we can ignore as_key here.
+            if (!as_key)
+            {
+                printf("nil");
+            }
             break;
-        case LUA_TBOOLEAN:
-            format_print(default_width) << (lua_toboolean(L, i) ? "true " : "false ");
-            break;
-        case LUA_TLIGHTUSERDATA:
-            //lua_touserdata(L, i);
-            break;
-        case LUA_TNUMBER:
-            format_print(default_width) << lua_tonumber(L, i);
-            break;
-        case LUA_TSTRING:
-            format_print(default_width) << lua_tostring(L, i);
-            break;
-        case LUA_TTABLE:
-            break;
-        case LUA_TFUNCTION:
-            //lua_tocfunction(L, i);
-            break;
-        case LUA_TUSERDATA:
-            //lua_topointer(L, i);
-            break;
-        case LUA_TTHREAD:
-            //lua_tothread(L, i);
-            break;
-        default:
-            break;
-        } 
 
-        std::cout << std::endl;
+        case LUA_TBOOLEAN:
+            printf("%s%s%s", first, lua_toboolean(L, i) ? "true" : "false", last);
+            break;
+
+        case LUA_TNUMBER:
+            printf("%s%g%s", first, lua_tonumber(L, i), last);
+            break;
+
+        case LUA_TSTRING:
+        {
+            const char *s = lua_tostring(L, i);
+            if (is_identifier(s) && as_key)
+            {
+                printf("%s", s);
+            }
+            else
+            {
+                printf("%s'%s'%s", first, s, last);
+            }
+        }
+        break;
+
+        case LUA_TTABLE:
+        {
+            printf("%s", first);
+            print_table(L, i);
+            printf("%s", last);
+        }
+        return;
+
+        case LUA_TFUNCTION:
+            printf("%s%s%s", first, get_fn_string(L, i), last);
+            break;
+
+        case LUA_TUSERDATA:
+        case LUA_TLIGHTUSERDATA:
+            printf("%suserdata:%p%s", first, lua_topointer(L, i), last);
+            break;
+
+        case LUA_TTHREAD:
+            printf("%sthread:", first, lua_topointer(L, i), last);
+            break;
+
+        default:
+            printf("<internal_error_in_print_stack_item!>");
+            break;
+        }
     }
+
+    //////////////////////////////////////////////////////////////////////////
 
     int custom_searcher(lua_State *L)
     {
@@ -121,28 +230,37 @@ namespace
 
 namespace Mage
 {
-    void LuaUtil::stack_trace(lua_State* L)
+    void LuaUtil::print_stack(lua_State* L)
     {
-        std::cout << "stack info:" << std::endl;
-
-        // titles
-        format_print(default_width) << "stack_frame";
-        format_print(default_width) << "field_type";
-        format_print(default_width) << "field_value";
-        std::cout << std::endl;
+        printf("stack info:\n");
 
         int top = lua_gettop(L);
-        for (int i = top; i > 0; --i)
+        if (top <= 0)
         {
-            trace_special_frame(L, i, false, top);
+            printf("<empty>");
+        }
+        else
+        {
+            for (int i = top; i > 0; --i)
+            {
+                // frame
+                printf("  [%-2d %2d] ", i, (i - top - 1));
+                // type
+                int t = lua_type(L, i);
+                printf("  %-8s ", lua_typename(L, t));
+                // value
+                print_item(L, i, 0);
+                printf("\n");
+            }
         }
 
-        std::cout << std::endl;
+        printf("\n");
     }
 
     void LuaUtil::print_field(lua_State* L, int index)
     {
-        trace_special_frame(L, index, true);
+        print_item(L, index, 0);
+        printf("\n");
     }
 
     bool LuaUtil::add_searcher(lua_State *L)

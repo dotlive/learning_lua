@@ -3,7 +3,7 @@
 
 using namespace Mage;
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE
 #include "test/test_case.h"
