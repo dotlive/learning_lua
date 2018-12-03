@@ -1,5 +1,6 @@
---require("a.b.target")
+require("target")
 
+--[[
 local luafs = require("lfs")
 
 local allFilePath = {}
@@ -24,3 +25,4 @@ end
 
 get_all_files("../../data/cpp")
 print(#allFilePath)
+--]]
