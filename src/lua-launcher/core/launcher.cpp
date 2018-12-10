@@ -1,9 +1,9 @@
-#include <gfl/utils/options.h>
-#include <gfl/utils/lua_util.h>
+//#include <gfl/utils/options.h>
+//#include <gfl/utils/lua_util.h>
 
-using namespace Mage;
+//using namespace Mage;
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE
 #include "test/test_case.h"
@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+    /*
     Mage::Options::Load("../res/config.xml");
 
     lua_State *L = luaL_newstate();
@@ -57,7 +58,7 @@ int main(int argc, char* argv[])
 
     lua_close(L);
 
-    system("pause");
+    system("pause");*/
     return 0;
 }
 

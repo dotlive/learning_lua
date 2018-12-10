@@ -242,7 +242,7 @@ IF(MAGE_PLATFORM_ANDROID)
     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -L${ANDROID_STL_LIBRARY_DIRS}")
 ENDIF()
 
-SET(MAGE_OUTPUT_SUFFIX _${MAGE_COMPILER_NAME}${MAGE_COMPILER_VERSION})
+SET(MAGE_OUTPUT_SUFFIX "")
 
 IF(MSVC)
     # create vcproj.user file for Visual Studio to set debug working directory
@@ -251,7 +251,7 @@ IF(MSVC)
         SET(USER_NAME $ENV{USERNAME})
 
         CONFIGURE_FILE(
-            ${MAGE_ROOT_DIR}/cmake/vsuserfile.vcxproj.user.in
+            ${SDK_ROOT_DIR}/cmake/vsuserfile.vcxproj.user.in
             ${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcxproj.user
             @ONLY
         )
@@ -265,7 +265,7 @@ IF(MAGE_PLATFORM_DARWIN OR MAGE_PLATFORM_IOS)
             SET(USER_NAME $ENV{USER})
 
             CONFIGURE_FILE(
-                ${MAGE_ROOT_DIR}/CMake/xcode.xcscheme.in
+                ${SDK_ROOT_DIR}/cmake/xcode.xcscheme.in
                 ${PROJECT_BINARY_DIR}/${PROJECTNAME}.xcodeproj/xcuserdata/${USER_NAME}.xcuserdatad/xcschemes/${TARGETNAME}.xcscheme
                 @ONLY
             )
