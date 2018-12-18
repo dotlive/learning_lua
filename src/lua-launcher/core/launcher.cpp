@@ -1,6 +1,10 @@
 //#include <gfl/utils/options.h>
 //#include <gfl/utils/lua_util.h>
 
+#include "custom_allocator.h"
+#include <stdlib.h>
+#include <time.h>
+
 //using namespace Mage;
 
 #define DEBUG_MODE 0
@@ -59,6 +63,19 @@ int main(int argc, char* argv[])
     lua_close(L);
 
     system("pause");*/
+
+    srand((int)time(0));
+
+    int COUNT = 10000;
+    int MAX_SIZE = 1024;
+
+    custom_allocator ca;
+    for (int idx = 0; idx < COUNT; ++idx)
+    {
+        int size = rand() % MAX_SIZE + 1;
+        ca.alloc(size);
+    }
+
     return 0;
 }
 

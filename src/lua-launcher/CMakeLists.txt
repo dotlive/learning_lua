@@ -3,9 +3,11 @@ PROJECT(launcher)
 SET(HDR_CORE
     pch.h
     core/lua_engine.h
+    core/custom_allocator.h
 )
 SET(SRC_CORE
     core/lua_engine.cpp
+    core/custom_allocator.cpp
     core/launcher.cpp
 )
 
