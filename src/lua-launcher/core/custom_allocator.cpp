@@ -32,7 +32,6 @@ void* custom_allocator::alloc(size_t size)
 
         if (NULL == p)
         {
-            // ÉêÇëÄÚ´æÊ§°Ü
             printf("(custom_allocator::alloc)no enough memory, size:%d", (int)size);
             abort();
             return NULL;
@@ -161,7 +160,7 @@ char* custom_allocator::chunk_alloc(size_t size, int& nobjs)
 
         if (NULL == pChunk)
         {
-            // ÉêÇëÄÚ´æÊ§°Ü
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ê§ï¿½ï¿½
             printf("(custom_allocator::chunk_alloc)no enough memory, size:%d", (int)mem_size);
             abort();
             return NULL;

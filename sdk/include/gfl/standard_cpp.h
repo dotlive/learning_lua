@@ -10,185 +10,185 @@
 #define CPLUSPLUS20_SUPPORT 0   // C++20
 */
 
-// ¸ÅÄî¿â
+// æ¦‚å¿µåº“
 #ifdef CPLUSPLUS20_SUPPORT
-#include <concepts>             // »ù´¡¿â¸ÅÄî
+#include <concepts>             // åŸºç¡€åº“æ¦‚å¿µ
 #endif // CPLUSPLUS20_SUPPORT
 
-// ¹¤¾ß¿â
-#include <cstdlib>              // Í¨ÓÃ¹¤¾ß£º³ÌĞò¿ØÖÆ¡¢¶¯Ì¬ÄÚ´æ·ÖÅä¡¢Ëæ»úÊı¡¢ÅÅĞòÓë²éÕÒ
-#include <csignal>              // ĞÅºÅ¹ÜÀíµÄº¯ÊıÓëºê³£Á¿
-#include <csetjmp>              // ±£´æµ½Ö´ĞĞ»·¾³µÄºê£¬¼°Ìøµ½Ö´ĞĞ»·¾³µÄº¯Êı
-#include <cstdarg>              // ±ä³¤²ÎÊıÁĞ±íµÄ´¦Àí
-#include <typeinfo>             // ÔËĞĞÊ±ÀàĞÍĞÅÏ¢¹¤¾ß
-#include <bitset>               // std::bitset ÀàÄ£°å
-#include <functional>           // º¯Êı¶ÔÏó¡¢º¯Êıµ÷ÓÃ¡¢°ó¶¨²Ù×÷¡¢ÒıÓÃ°ü×°
-#include <utility>              // ¶àÖÖ¹¤¾ß×é¼ş
-#include <ctime>                // C ·ç¸ñÊ±¼ä/ÈÕÆÚ¹¤¾ß
-#include <cstddef>              // ±ê×¼ºêºÍÀàĞÍ¶¨Òå
+// å·¥å…·åº“
+#include <cstdlib>              // é€šç”¨å·¥å…·ï¼šç¨‹åºæ§åˆ¶ã€åŠ¨æ€å†…å­˜åˆ†é…ã€éšæœºæ•°ã€æ’åºä¸æŸ¥æ‰¾
+#include <csignal>              // ä¿¡å·ç®¡ç†çš„å‡½æ•°ä¸å®å¸¸é‡
+#include <csetjmp>              // ä¿å­˜åˆ°æ‰§è¡Œç¯å¢ƒçš„å®ï¼ŒåŠè·³åˆ°æ‰§è¡Œç¯å¢ƒçš„å‡½æ•°
+#include <cstdarg>              // å˜é•¿å‚æ•°åˆ—è¡¨çš„å¤„ç†
+#include <typeinfo>             // è¿è¡Œæ—¶ç±»å‹ä¿¡æ¯å·¥å…·
+#include <bitset>               // std::bitset ç±»æ¨¡æ¿
+#include <functional>           // å‡½æ•°å¯¹è±¡ã€å‡½æ•°è°ƒç”¨ã€ç»‘å®šæ“ä½œã€å¼•ç”¨åŒ…è£…
+#include <utility>              // å¤šç§å·¥å…·ç»„ä»¶
+#include <ctime>                // C é£æ ¼æ—¶é—´/æ—¥æœŸå·¥å…·
+#include <cstddef>              // æ ‡å‡†å®å’Œç±»å‹å®šä¹‰
 #ifdef CPLUSPLUS11_SUPPORT
     #include <typeindex>            // std::type_index
-    #include <type_traits>          // ±àÒëÊ±ÀàĞÍĞÅÏ¢
-    #include <chrono>               // C++ Ê±¼ä¹¤¾ß
-    #include <initializer_list>     // std::initializer_list ÀàÄ£°å
-    #include <tuple>                // std::tuple ÀàÄ£°å
+    #include <type_traits>          // ç¼–è¯‘æ—¶ç±»å‹ä¿¡æ¯
+    #include <chrono>               // C++ æ—¶é—´å·¥å…·
+    #include <initializer_list>     // std::initializer_list ç±»æ¨¡æ¿
+    #include <tuple>                // std::tuple ç±»æ¨¡æ¿
     #ifdef CPLUSPLUS17_SUPPORT
-        #include <any>                  // std::any Àà
-        #include <optional>             // std::optional ÀàÄ£°å
-        #include <variant>              // std::variant ÀàÄ£°å
+        #include <any>                  // std::any ç±»
+        #include <optional>             // std::optional ç±»æ¨¡æ¿
+        #include <variant>              // std::variant ç±»æ¨¡æ¿
         #ifdef CPLUSPLUS20_SUPPORT
-            #include <compare>              // ÈıÂ·±È½ÏÔËËã·ûÖ§³Ö
-            #include <version>              // Ìá¹©ÒÀÀµÊµÏÖµÄ¿âĞÅÏ¢
+            #include <compare>              // ä¸‰è·¯æ¯”è¾ƒè¿ç®—ç¬¦æ”¯æŒ
+            #include <version>              // æä¾›ä¾èµ–å®ç°çš„åº“ä¿¡æ¯
         #endif // CPLUSPLUS20_SUPPORT
     #endif // CPLUSPLUS17_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// ¶¯Ì¬ÄÚ´æ¹ÜÀí
-#include <new>                  // µÍ²ãÄÚ´æ¹ÜÀí¹¤¾ß
-#include <memory>               // ¸ß²ãÄÚ´æ¹ÜÀí¹¤¾ß
+// åŠ¨æ€å†…å­˜ç®¡ç†
+#include <new>                  // ä½å±‚å†…å­˜ç®¡ç†å·¥å…·
+#include <memory>               // é«˜å±‚å†…å­˜ç®¡ç†å·¥å…·
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <scoped_allocator>     // Ç¶Ì×·ÖÅäÆ÷Àà
+    #include <scoped_allocator>     // åµŒå¥—åˆ†é…å™¨ç±»
     #ifdef CPLUSPLUS17_SUPPORT
-        #include <memory_resource>      // ¶àÌ¬·ÖÅäÆ÷¼°ÄÚ´æ×ÊÔ´
+        #include <memory_resource>      // å¤šæ€åˆ†é…å™¨åŠå†…å­˜èµ„æº
     #endif // CPLUSPLUS17_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// ÊıÖµ¼«ÏŞ
-#include <climits>              // ÕûÊıÀàĞÍ¼«ÏŞ
-#include <cfloat>               // ¸¡µãÀàĞÍ¼«ÏŞ
-#include <limits>               // ²éÑ¯ËãÊõÀàĞÍÊôĞÔµÄ±ê×¼»¯·½Ê½
+// æ•°å€¼æé™
+#include <climits>              // æ•´æ•°ç±»å‹æé™
+#include <cfloat>               // æµ®ç‚¹ç±»å‹æé™
+#include <limits>               // æŸ¥è¯¢ç®—æœ¯ç±»å‹å±æ€§çš„æ ‡å‡†åŒ–æ–¹å¼
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <cstdint>              // ¶¨³¤ÕûÊı¼°ÆäËûÀàĞÍµÄ¼«ÏŞ
-    #include <cinttypes>            // ¸ñÊ½»¯ºê¡¢ intmax_t ¼° uintmax_t ÊıÑ§¹¤¾ß¼°×ª»»
+    #include <cstdint>              // å®šé•¿æ•´æ•°åŠå…¶ä»–ç±»å‹çš„æé™
+    #include <cinttypes>            // æ ¼å¼åŒ–å®ã€ intmax_t åŠ uintmax_t æ•°å­¦å·¥å…·åŠè½¬æ¢
 #endif // CPLUSPLUS11_SUPPORT
 
-// ´íÎó´¦Àí
-#include <exception>            // Òì³£´¦Àí¹¤¾ß
-#include <stdexcept>            // ±ê×¼Òì³£¶ÔÏó
-#include <cassert>              // ½«Æä²ÎÊıÓëÁã±È½ÏµÄÌõ¼şĞÔ±àÒëºê
-#include <cerrno>               // º¬ÓĞ×î½üÒ»´Î´íÎóºÅµÄºê
+// é”™è¯¯å¤„ç†
+#include <exception>            // å¼‚å¸¸å¤„ç†å·¥å…·
+#include <stdexcept>            // æ ‡å‡†å¼‚å¸¸å¯¹è±¡
+#include <cassert>              // å°†å…¶å‚æ•°ä¸é›¶æ¯”è¾ƒçš„æ¡ä»¶æ€§ç¼–è¯‘å®
+#include <cerrno>               // å«æœ‰æœ€è¿‘ä¸€æ¬¡é”™è¯¯å·çš„å®
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <system_error>         // ¶¨Òå std::error_code£¬ÒÀÀµÆ½Ì¨µÄ´íÎóÂë
+    #include <system_error>         // å®šä¹‰ std::error_codeï¼Œä¾èµ–å¹³å°çš„é”™è¯¯ç 
     #ifdef CPLUSPLUS20_SUPPORT
-        #include <contract>             // ÆõÔ¼Î¥¹æĞÅÏ¢
+        #include <contract>             // å¥‘çº¦è¿è§„ä¿¡æ¯
     #endif // CPLUSPLUS20_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// ×Ö·û´®¿â
-#include <cctype>               // È·¶¨×Ö·ûÊı¾İÖĞËùº¬ÀàĞÍµÄº¯Êı
-#include <cwctype>              // È·¶¨¿í×Ö·ûÊı¾İÖĞËùº¬ÀàĞÍµÄº¯Êı
-#include <cstring>              // ¶àÖÖÕ­×Ö·û´®´¦Àíº¯Êı
-#include <cwchar>               // ¶àÖÖ¿í¼°¶à×Ö½Ú×Ö·û´®´¦Àíº¯Êı
-#include <string>               // std::basic_string ÀàÄ£°å
+// å­—ç¬¦ä¸²åº“
+#include <cctype>               // ç¡®å®šå­—ç¬¦æ•°æ®ä¸­æ‰€å«ç±»å‹çš„å‡½æ•°
+#include <cwctype>              // ç¡®å®šå®½å­—ç¬¦æ•°æ®ä¸­æ‰€å«ç±»å‹çš„å‡½æ•°
+#include <cstring>              // å¤šç§çª„å­—ç¬¦ä¸²å¤„ç†å‡½æ•°
+#include <cwchar>               // å¤šç§å®½åŠå¤šå­—èŠ‚å­—ç¬¦ä¸²å¤„ç†å‡½æ•°
+#include <string>               // std::basic_string ç±»æ¨¡æ¿
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <cuchar>               // C ·ç¸ñ Unicode ×Ö·û×ª»»º¯Êı
+    #include <cuchar>               // C é£æ ¼ Unicode å­—ç¬¦è½¬æ¢å‡½æ•°
     #ifdef CPLUSPLUS17_SUPPORT
-        #include <string_view>          // std::basic_string_view ÀàÄ£°å
-        #include <charconv>             // std::to_chars Óë std::from_chars
+        #include <string_view>          // std::basic_string_view ç±»æ¨¡æ¿
+        #include <charconv>             // std::to_chars ä¸ std::from_chars
     #endif // CPLUSPLUS20_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// ÈİÆ÷¿â
-#include <vector>               // std::vector ÈİÆ÷
-#include <deque>                // std::deque ÈİÆ÷
-#include <list>                 // std::list ÈİÆ÷
-#include <set>                  // std::set ¼° std::multiset ¹ØÁªÈİÆ÷
-#include <map>                  // std::map ¼° std::multimap ¹ØÁªÈİÆ÷
-#include <stack>                // std::stack ÈİÆ÷ÊÊÅäÆ÷
-#include <queue>                // std::queue ¼° std::priority_queue ÈİÆ÷ÊÊÅäÆ÷
+// å®¹å™¨åº“
+#include <vector>               // std::vector å®¹å™¨
+#include <deque>                // std::deque å®¹å™¨
+#include <list>                 // std::list å®¹å™¨
+#include <set>                  // std::set åŠ std::multiset å…³è”å®¹å™¨
+#include <map>                  // std::map åŠ std::multimap å…³è”å®¹å™¨
+#include <stack>                // std::stack å®¹å™¨é€‚é…å™¨
+#include <queue>                // std::queue åŠ std::priority_queue å®¹å™¨é€‚é…å™¨
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <array>                // std::array ÈİÆ÷
-    #include <forward_list>         // std::forward_list ÈİÆ÷
-    #include <unordered_set>        // std::unordered_set ¼° std::unordered_multiset ÎŞĞò¹ØÁªÈİÆ÷
-    #include <unordered_map>        // std::unordered_map ¼° std::unordered_multimap ÎŞĞò¹ØÁªÈİÆ÷
+    #include <array>                // std::array å®¹å™¨
+    #include <forward_list>         // std::forward_list å®¹å™¨
+    #include <unordered_set>        // std::unordered_set åŠ std::unordered_multiset æ— åºå…³è”å®¹å™¨
+    #include <unordered_map>        // std::unordered_map åŠ std::unordered_multimap æ— åºå…³è”å®¹å™¨
     #ifdef CPLUSPLUS20_SUPPORT
-        #include <span>                 // std::span ÊÓÍ¼
+        #include <span>                 // std::span è§†å›¾
     #endif // CPLUSPLUS20_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// Ëã·¨¿â
-#include <algorithm>            // ²Ù×÷ÓÚÈİÆ÷ÉÏµÄËã·¨
+// ç®—æ³•åº“
+#include <algorithm>            // æ“ä½œäºå®¹å™¨ä¸Šçš„ç®—æ³•
 #ifdef CPLUSPLUS17_SUPPORT
-    #include <execution>            // Ëã·¨²¢ĞĞ°æ±¾µÄÔ¤¶¨ÒåÖ´ĞĞ²ßÂÔ
+    #include <execution>            // ç®—æ³•å¹¶è¡Œç‰ˆæœ¬çš„é¢„å®šä¹‰æ‰§è¡Œç­–ç•¥
 #endif // CPLUSPLUS17_SUPPORT
 
-// µü´úÆ÷¿â
-#include <iterator>             // ÈİÆ÷µü´úÆ÷
+// è¿­ä»£å™¨åº“
+#include <iterator>             // å®¹å™¨è¿­ä»£å™¨
 
-// ÊıÖµ¿â
-#include <cmath>                // ³£ÓÃÊıÑ§º¯Êı
-#include <complex>              // ¸´ÊıÀàĞÍ
-#include <valarray>             // ±íÊ¾ºÍ²Ù×÷ÖµµÄÊı×éµÄÀà
-#include <numeric>              // ÈİÆ÷ÖĞÖµµÄÊıÖµÔËËã
+// æ•°å€¼åº“
+#include <cmath>                // å¸¸ç”¨æ•°å­¦å‡½æ•°
+#include <complex>              // å¤æ•°ç±»å‹
+#include <valarray>             // è¡¨ç¤ºå’Œæ“ä½œå€¼çš„æ•°ç»„çš„ç±»
+#include <numeric>              // å®¹å™¨ä¸­å€¼çš„æ•°å€¼è¿ç®—
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <random>               // Ëæ»úÊıÉú³ÉÆ÷¼°·Ö²¼
-    #include <ratio>                // ±àÒëÊ±ÓĞÀíÊıËãÊõ
-    #include <cfenv>                // ¸¡µã»·¾³·ÃÎÊº¯Êı
+    #include <random>               // éšæœºæ•°ç”Ÿæˆå™¨åŠåˆ†å¸ƒ
+    #include <ratio>                // ç¼–è¯‘æ—¶æœ‰ç†æ•°ç®—æœ¯
+    #include <cfenv>                // æµ®ç‚¹ç¯å¢ƒè®¿é—®å‡½æ•°
     #ifdef CPLUSPLUS20_SUPPORT
-        #include <bit>                  // Î»²Ù×İº¯Êı 
+        #include <bit>                  // ä½æ“çºµå‡½æ•° 
     #endif // CPLUSPLUS20_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// ÊäÈë/Êä³ö¿â
-#include <iosfwd>               // ËùÓĞÊäÈë/Êä³ö¿âÖĞµÄÀàµÄÇ°ÖÃÉùÃ÷
-#include <ios>                  // std::ios_base Àà¡¢std::basic_ios ÀàÄ£°å¼°Êı¸ö typedef
-#include <istream>              // std::basic_istream ÀàÄ£°å¼°Êı¸ö typedef
-#include <ostream>              // std::basic_ostream ¡¢ std::basic_iostream ÀàÄ£°å¼°Êı¸ötypedef
-#include <iostream>             // Êı¸ö±ê×¼Á÷¶ÔÏó
-#include <fstream>              // std::basic_fstream ¡¢ std::basic_ifstream ¡¢ std::basic_ofstream ÀàÄ£°å¼°Êı¸ötypedef
-#include <sstream>              // std::basic_stringstream ¡¢ std::basic_istringstream ¡¢ std::basic_ostringstream ÀàÄ£°å¼°Êı¸ö typedef
-#include <strstream>            // std::strstream ¡¢ std::istrstream ¡¢ std::ostrstream
-#include <iomanip>              // ¿ØÖÆÊäÈëÊä³ö¸ñÊ½µÄ°ïÖúº¯Êı
-#include <streambuf>            // std::basic_streambuf ÀàÄ£°å
-#include <cstdio>               // C ·ç¸ñÊäÈëÊä³öº¯Êı
+// è¾“å…¥/è¾“å‡ºåº“
+#include <iosfwd>               // æ‰€æœ‰è¾“å…¥/è¾“å‡ºåº“ä¸­çš„ç±»çš„å‰ç½®å£°æ˜
+#include <ios>                  // std::ios_base ç±»ã€std::basic_ios ç±»æ¨¡æ¿åŠæ•°ä¸ª typedef
+#include <istream>              // std::basic_istream ç±»æ¨¡æ¿åŠæ•°ä¸ª typedef
+#include <ostream>              // std::basic_ostream ã€ std::basic_iostream ç±»æ¨¡æ¿åŠæ•°ä¸ªtypedef
+#include <iostream>             // æ•°ä¸ªæ ‡å‡†æµå¯¹è±¡
+#include <fstream>              // std::basic_fstream ã€ std::basic_ifstream ã€ std::basic_ofstream ç±»æ¨¡æ¿åŠæ•°ä¸ªtypedef
+#include <sstream>              // std::basic_stringstream ã€ std::basic_istringstream ã€ std::basic_ostringstream ç±»æ¨¡æ¿åŠæ•°ä¸ª typedef
+#include <strstream>            // std::strstream ã€ std::istrstream ã€ std::ostrstream
+#include <iomanip>              // æ§åˆ¶è¾“å…¥è¾“å‡ºæ ¼å¼çš„å¸®åŠ©å‡½æ•°
+#include <streambuf>            // std::basic_streambuf ç±»æ¨¡æ¿
+#include <cstdio>               // C é£æ ¼è¾“å…¥è¾“å‡ºå‡½æ•°
 #ifdef CPLUSPLUS20_SUPPORT
-    #include <syncstream>           // std::basic_osyncstream ¡¢ std::basic_syncbuf ¼° typedef
+    #include <syncstream>           // std::basic_osyncstream ã€ std::basic_syncbuf åŠ typedef
 #endif
 
-// ±¾µØ»¯¿â
-#include <locale>               // ±¾µØ»¯¹¤¾ß
-#include <clocale>              // C ±¾µØ»¯¹¤¾ß
+// æœ¬åœ°åŒ–åº“
+#include <locale>               // æœ¬åœ°åŒ–å·¥å…·
+#include <clocale>              // C æœ¬åœ°åŒ–å·¥å…·
 #ifdef CPLUSPLUS11_SUPPORT
-    #include <codecvt>              // Unicode ×ª»»ÉèÊ©
+    #include <codecvt>              // Unicode è½¬æ¢è®¾æ–½
 #endif // (CPLUSPLUS11_SUPPORT && !CPLUSPLUS17_SUPPORT && !CPLUSPLUS20_SUPPORT)
 
-// ÕıÔò±í´ïÊ½¿â
+// æ­£åˆ™è¡¨è¾¾å¼åº“
 #ifdef CPLUSPLUS11_SUPPORT
-#include <regex>                // Ö§³ÖÕıÔò±í´ïÊ½´¦ÀíµÄÀà¡¢Ëã·¨¼°µü´úÆ÷
+#include <regex>                // æ”¯æŒæ­£åˆ™è¡¨è¾¾å¼å¤„ç†çš„ç±»ã€ç®—æ³•åŠè¿­ä»£å™¨
 #endif
 
-// Ô­×Ó²Ù×÷¿â
+// åŸå­æ“ä½œåº“
 #ifdef CPLUSPLUS11_SUPPORT
-#include <atomic>               // Ô­×Ó²Ù×÷¿â
+#include <atomic>               // åŸå­æ“ä½œåº“
 #endif
 
-// Ïß³ÌÖ§³Ö¿â
+// çº¿ç¨‹æ”¯æŒåº“
 #ifdef CPLUSPLUS11_SUPPORT
-#include <thread>               // std::thread Àà¼°Ö§³Öº¯Êı
-#include <mutex>                // »¥³âÔ­Óï
-#include <future>               // Òì²½¼ÆËãµÄÔ­Óï
-#include <condition_variable>   // Ïß³ÌµÈ´ıÌõ¼ş
+#include <thread>               // std::thread ç±»åŠæ”¯æŒå‡½æ•°
+#include <mutex>                // äº’æ–¥åŸè¯­
+#include <future>               // å¼‚æ­¥è®¡ç®—çš„åŸè¯­
+#include <condition_variable>   // çº¿ç¨‹ç­‰å¾…æ¡ä»¶
     #ifdef CPLUSPLUS14_SUPPORT
-        #include <shared_mutex>     // ¹²ÏíµÄ»¥³âÔ­Óï
+        #include <shared_mutex>     // å…±äº«çš„äº’æ–¥åŸè¯­
     #endif // CPLUSPLUS14_SUPPORT
 #endif // CPLUSPLUS11_SUPPORT
 
-// ÎÄ¼şÏµÍ³¿â
+// æ–‡ä»¶ç³»ç»Ÿåº“
 #ifdef CPLUSPLUS17_SUPPORT
-#include <filesystem>           // std::path Àà¼°Ö§³Öº¯Êı
+#include <filesystem>           // std::path ç±»åŠæ”¯æŒå‡½æ•°
 #endif // CPLUSPLUS17_SUPPORT
 
-// ÆäËü
+// å…¶å®ƒ
 
 // Unsupported C headers
 #ifdef COMPAT_C
-#include <stdatomic.h>          // Ô­×ÓÀàĞÍ
-#include <stdnoreturn.h>        // noreturn ±ãÀûºê
-#include <threads.h>            // Ïß³Ì¿â
+#include <stdatomic.h>          // åŸå­ç±»å‹
+#include <stdnoreturn.h>        // noreturn ä¾¿åˆ©å®
+#include <threads.h>            // çº¿ç¨‹åº“
 #endif
 
 // Empty C headers
-//#include <ccomplex> // Í¬ complex
+//#include <ccomplex> // åŒ complex
 //#include <ctgmath>  // cmath + complex
 
 // Meaningless C headers (the macros these provide in C are language keywords in C++)
